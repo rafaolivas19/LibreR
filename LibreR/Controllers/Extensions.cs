@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Threading;
 using LibreR.Embedded;
 using LibreR.Embedded.Newtonsoft.Json;
+using LibreR.Embedded.Newtonsoft.Json.Converters;
 using LibreR.Models;
 using LibreR.Models.Enums;
 
@@ -136,6 +137,14 @@ namespace LibreR.Controllers {
             { Serializer.OneLine, new JsonSerializerSettings{ NullValueHandling = NullValueHandling.Ignore, Formatting = Formatting.None } },
             { Serializer.OneLineWithNullValues, new JsonSerializerSettings{ Formatting = Formatting.None } }
         };
+
+        public static void EnableEnumToStringSerialization() {
+            JsonConvert.DefaultSettings = (() => {
+                var settings = new JsonSerializerSettings();
+                settings.Converters.Add(new StringEnumConverter());
+                return settings;
+            });
+        }
 
         public static string Serialize(this object obj, Serializer serializer = Serializer.PrettyFormat) {
             return JsonConvert.SerializeObject(obj, BinderSerializers[serializer]);

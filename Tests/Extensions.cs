@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using LibreR.Controllers;
+using LibreR.Models.Enums;
 using NUnit.Framework;
 
 namespace Tests {
     [TestFixture]
     public static class Extensions {
+        public static void Main() {
+            Console.WriteLine(new { X = CaretPosition.End }.Serialize());
+            Thread.Sleep(999999);
+        }
+
         [Test]
         public static void UnixEpoch() {
             var now = DateTime.Now;
