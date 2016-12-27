@@ -113,6 +113,10 @@ namespace LibreR.Controllers {
             if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
         }
 
+        public void EnableSecureCopy(string key) {
+            EnableSecureCopy(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "bin", key);
+        }
+
         public static void GenerateReadableCopy(string ori, string copy, string key) {
             var security = new Security(key);
             var content = File.ReadAllText(ori).Split('♦').ToList();
