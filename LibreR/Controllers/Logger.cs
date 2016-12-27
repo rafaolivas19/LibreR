@@ -34,9 +34,7 @@ namespace LibreR.Controllers {
         private string _secureExtension;
         private Security _security;
 
-        public Logger() : this(
-            $"{new StackFrame(1).GetMethod().DeclaringType.GetAssembly().Name} {new StackFrame(1).GetMethod().DeclaringType?.Assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false).OfType<AssemblyDescriptionAttribute>().FirstOrDefault()?.Description}"
-            ) { }
+        public Logger() : this($"{new StackFrame(1).GetMethod().DeclaringType.GetAssembly().Name}") { }
 
         public Logger(string name, int lineLength) : this(name, "LOGGER SESION STARTS", '■', lineLength) { }
 
@@ -104,10 +102,6 @@ namespace LibreR.Controllers {
             }
         }
 
-        //public void Test([CallerFilePath] string file = null, [CallerLineNumber] int line = 0) {
-        //    Message($"Line: {line}, File: {file}", "TEST-LINE");
-        //}
-
         public void EnableSecureCopy(string path, string extension, string key) {
             _isSecureCopyActive = true;
             _securePath = path;
@@ -148,48 +142,6 @@ namespace LibreR.Controllers {
             }
 
             return sb.ToString();
-        }
-
-        private string BreakLine(string line) {
-            var result = new StringBuilder();
-
-            while (line.Length > _lineLength) {
-                if (result.ToString() != string.Empty) result.Append(Environment.NewLine);
-                result.Append(line.Substring(0, _lineLength));
-                line = line.Substring(_lineLength, line.Length - _lineLength);
-            }
-
-            if (result.ToString() != string.Empty) result.Append(Environment.NewLine);
-            if (line.Length > 1) result.Append(line);
-
-            return result.ToString();
-        }
-
-        private string BreakLineByWords(string line) {
-            var result = new StringBuilder();
-            var words = line.Split(' ');
-            var counter = 0;
-
-            foreach (var word in words.Where(word => word != string.Empty)) {
-                counter += word.Length;
-
-                if (result.ToString() != string.Empty) {
-                    counter++;
-
-                    if (counter <= _lineLength) {
-                        result.Append(' ');
-                    }
-                }
-
-                if (counter > _lineLength) {
-                    result.Append(Environment.NewLine);
-                    counter = word.Length;
-                }
-
-                result.Append(word);
-            }
-
-            return result.ToString();
         }
     }
 }
