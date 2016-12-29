@@ -114,7 +114,7 @@ namespace LibreR.Controllers {
         }
 
         public void EnableSecureCopy(string key) {
-            EnableSecureCopy(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "bin", key);
+            EnableSecureCopy($"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/ol-GS", "bin", key);
         }
 
         public static void GenerateReadableCopy(string ori, string copy, string key) {

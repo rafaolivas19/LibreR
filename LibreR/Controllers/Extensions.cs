@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using System.Windows;
@@ -170,6 +171,19 @@ namespace LibreR.Controllers {
         public static object Invoke(this MethodInfo methodInfo, object obj, params object[] parameters) {
             return methodInfo.Invoke(obj, parameters);
         }
+        #endregion
+
+        #region NetworkInterface
+
+        public static string GetMacAddress()
+        {
+            return (
+                from nic in NetworkInterface.GetAllNetworkInterfaces()
+                where nic.OperationalStatus == OperationalStatus.Up
+                select nic.GetPhysicalAddress().ToString()
+                ).FirstOrDefault();
+        }
+
         #endregion
 
         #region Object
