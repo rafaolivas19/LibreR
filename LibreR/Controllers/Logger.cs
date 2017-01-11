@@ -81,7 +81,7 @@ namespace LibreR.Controllers {
 
             foreach (var aux in msg.Split(new[] { Environment.NewLine }, StringSplitOptions.None)) {
                 if (registered) {
-                    var hour = DateTime.Now.ToString("hh:mm:ss.fff tt");
+                    var hour = DateTime.Now.ToString("HH:mm:ss.ffffzzz");
                     var space = new string(' ', hour.Length + 3);
 
                     sb.Append(Environment.NewLine);
@@ -90,7 +90,7 @@ namespace LibreR.Controllers {
                     continue;
                 }
 
-                sb.Append($"[{DateTime.Now.ToString("hh:mm:ss.fff tt")}] {aux}");
+                sb.Append($"[{DateTime.Now.ToString("HH:mm:ss.ffffzzz")}] {aux}");
                 registered = true;
             }
 
