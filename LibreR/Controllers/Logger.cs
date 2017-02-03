@@ -134,7 +134,7 @@ namespace LibreR.Controllers {
         private void SecureMessage(string text, DateTime? date = null) {
             if (_isSecureCopyActive)
                 File.AppendAllText(
-                    $"{_securePath}/{LogFile.Name}/{date?.ToString("dd-MM-yyyy") ?? string.Empty}.{_secureExtension}",
+                    $"{_securePath}/{LogFile.Name}/{date?.ToString("yyyy-MM-dd") ?? string.Empty}.{_secureExtension}",
                     _security.Encrypt(text) + '♦');
         }
 
