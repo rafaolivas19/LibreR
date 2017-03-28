@@ -18,6 +18,7 @@ using LibreR.Embedded.Newtonsoft.Json;
 using LibreR.Embedded.Newtonsoft.Json.Converters;
 using LibreR.Models;
 using LibreR.Models.Enums;
+using System.Windows.Media;
 
 namespace LibreR.Controllers {
     public static class Extensions {
@@ -37,9 +38,29 @@ namespace LibreR.Controllers {
         }
         #endregion
 
+        #region DataGrid
+        public static ScrollViewer GetScrollViewer(this DataGrid datagrid) {
+            if (VisualTreeHelper.GetChildrenCount(datagrid) == 0) return null;
+            var x = VisualTreeHelper.GetChild(datagrid, 0);
+            if (x == null) return null;
+            if (VisualTreeHelper.GetChildrenCount(x) == 0) return null;
+            return VisualTreeHelper.GetChild(x, 0) as ScrollViewer;
+        }
+        #endregion
+
         #region DateTime
 
         public static long DateTimeToUnixEpoch(DateTime date = default(DateTime)) {
+            if (date == default(DateTime)) date = DateTime.Now;
+
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            var today = date.ToUniversalTime();
+            var elapsed = (long)(today - epoch).TotalSeconds;
+
+            return elapsed;
+        }
+
+        public static long ToUnixEpoch(this DateTime date) {
             if (date == default(DateTime)) date = DateTime.Now;
 
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
@@ -175,8 +196,7 @@ namespace LibreR.Controllers {
 
         #region NetworkInterface
 
-        public static string GetMacAddress()
-        {
+        public static string GetMacAddress() {
             return (
                 from nic in NetworkInterface.GetAllNetworkInterfaces()
                 where nic.OperationalStatus == OperationalStatus.Up

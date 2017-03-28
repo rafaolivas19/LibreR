@@ -128,6 +128,12 @@ namespace LibreR.Controllers {
                 sb.Append(security.Decrypt(x));
             }
 
+            var copyFile = new FileInfo(copy);
+
+            if (!Directory.Exists(copyFile.Directory?.FullName)) {
+                copyFile.Directory?.Create();
+            }
+
             File.WriteAllText(copy, sb.ToString());
         }
 
