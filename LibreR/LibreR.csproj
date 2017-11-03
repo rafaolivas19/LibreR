@@ -317,7 +317,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>for /f "delims=" %25%25a in ('git rev-parse HEAD') do @set VERSION=%25%25a
-powershell -Command "(type $(ProjectDir)\Properties\AssemblyInfo.cs) -replace '\[assembly: AssemblyTitle\(\".*?\"\)\]', '[assembly: AssemblyTitle(\"%25VERSION%25\")]' | Out-File $(ProjectDir)Properties\AssemblyInfo.cs"</PreBuildEvent>
+powershell -Command "(type \"$(ProjectDir)\Properties\AssemblyInfo.cs\") -replace '\[assembly: AssemblyTitle\(\".*?\"\)\]', '[assembly: AssemblyTitle(\"%25VERSION%25\")]' | Out-File \"$(ProjectDir)Properties\AssemblyInfo.cs\""</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
