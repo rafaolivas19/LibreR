@@ -70,7 +70,7 @@ namespace LibreR.Controllers {
             return elapsed;
         }
 
-        public static DateTime GetDateTimeFromUnixEpoch(long timestamp) {
+        public static DateTime GetDateTimeFromUnixEpoch(double timestamp) {
             var epochTimestamp = timestamp;
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             var date = epoch.AddSeconds(epochTimestamp);
