@@ -2,7 +2,6 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"/>
     <PropertyGroup>
-        <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"/>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProjectGuid>{9459DAC1-75B0-4674-9123-E254B8706AA1}</ProjectGuid>
@@ -328,9 +327,12 @@
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <PropertyGroup Condition="'$(OS)' == 'Windows_NT' ">
         <PreBuildEvent>
-            for /f "delims=" %25%25a in ('git rev-parse HEAD') do @set VERSION=%25%25a
-            powershell -Command "(type \"$(ProjectDir)\Properties\AssemblyInfo.cs\") -replace '\[assembly: AssemblyTitle\(\".*?\"\)\]', '[assembly: AssemblyTitle(\"%25VERSION%25\")]' | Out-File \"$(ProjectDir)Properties\AssemblyInfo.cs\""
+            for /f "delims=" %25%25a in ('git rev-parse --short HEAD') do @set VERSION=%25%25a
+            powershell -Command "(type \"$(ProjectDir)\Properties\AssemblyInfo.cs\") -replace '(\[assembly: AssemblyInformationalVersion\(\"\d+.\d+.\d+)\..*(\"\)\])', '$1.%25VERSION%25$2' | Out-File \"$(ProjectDir)Properties\AssemblyInfo.cs\""
         </PreBuildEvent>
+        <PostBuildEvent>
+            powershell -Command "(type \"$(ProjectDir)\Properties\AssemblyInfo.cs\") -replace '(\[assembly: AssemblyInformationalVersion\(\"\d+.\d+.\d+)\..*(\"\)\])', '$1.*$2' | Out-File \"$(ProjectDir)Properties\AssemblyInfo.cs\""
+        </PostBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(OS)' != 'Windows_NT' ">
         <PreBuildEvent>
