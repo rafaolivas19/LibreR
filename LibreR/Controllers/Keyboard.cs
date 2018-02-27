@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
+#if !(MONO)
 using System.Windows.Documents;
+#endif
 using System.Windows.Forms;
 
 namespace LibreR.Controllers {

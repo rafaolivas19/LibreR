@@ -1,329 +1,342 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9459DAC1-75B0-4674-9123-E254B8706AA1}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LibreR</RootNamespace>
-    <AssemblyName>LibreR</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;RELEASE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Printing" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Controllers\Extensions.cs" />
-    <Compile Include="Controllers\Gui\Wpf\Window.cs" />
-    <Compile Include="Controllers\Keyboard.cs" />
-    <Compile Include="Controllers\Gui\WinForms\Controls\ErrorNotification.cs" />
-    <Compile Include="Controllers\Gui\WinForms\Controls\TextBoxR.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\Gui\WinForms\Controls\TextBoxR.Designer.cs">
-      <DependentUpon>TextBoxR.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\TrickAttributes.cs" />
-    <Compile Include="Controllers\User32.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonBinaryType.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonBinaryWriter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonObjectId.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonReader.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonToken.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonType.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonWriter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\ConstructorHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\BinaryConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\CustomCreationConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\DataSetConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\DataTableConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\DateTimeConverterBase.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\DiscriminatedUnionConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\EntityKeyMemberConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\ExpandoObjectConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\JsonValueConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\KeyValuePairConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\RegexConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\StringEnumConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\VersionConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Converters\XmlNodeConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\DateFormatHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\DateParseHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\DateTimeZoneHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\DefaultValueHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\FloatFormatHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\FloatParseHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\FormatterAssemblyStyle.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Formatting.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\IArrayPool.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\IJsonLineInfo.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonArrayAttribute.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonConstructorAttribute.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonContainerAttribute.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonConvert.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonConverterAttribute.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonConverterCollection.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonDictionaryAttribute.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonException.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonExtensionDataAttribute.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonIgnoreAttribute.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonObjectAttribute.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonPosition.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonPropertyAttribute.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonReader.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonReaderException.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonRequiredAttribute.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonSerializationException.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonSerializer.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonSerializerSettings.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonTextReader.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonTextWriter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonToken.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonValidatingReader.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonWriter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\JsonWriterException.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\CommentHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\Extensions.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\IJEnumerable.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JArray.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JConstructor.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JContainer.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JEnumerable.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JObject.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JProperty.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JPropertyDescriptor.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JRaw.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonLoadSettings.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonMergeSettings.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\FieldMultipleFilter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\JPath.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JToken.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JTokenEqualityComparer.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JTokenReader.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JTokenType.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JTokenWriter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\JValue.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Linq\MergeArrayHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\MemberSerialization.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\MetadataPropertyHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\MissingMemberHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\NullValueHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\ObjectCreationHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\PreserveReferencesHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\ReferenceLoopHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Required.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\Extensions.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchema.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaBuilder.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaConstants.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaException.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaGenerator.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaModel.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaModelBuilder.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaNode.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaNodeCollection.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaResolver.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaType.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaWriter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\UndefinedSchemaIdHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\ValidationEventArgs.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Schema\ValidationEventHandler.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\SerializationBinder.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\DefaultContractResolver.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\DiagnosticsTraceWriter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\DynamicValueProvider.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\ErrorContext.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\ErrorEventArgs.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\ExpressionValueProvider.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\IAttributeProvider.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\IContractResolver.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\IReferenceResolver.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\ITraceWriter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\IValueProvider.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonArrayContract.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonContainerContract.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonContract.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonDictionaryContract.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonDynamicContract.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonISerializableContract.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonLinqContract.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonObjectContract.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonProperty.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonStringContract.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonTypeReflector.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\ObjectConstructor.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\OnErrorAttribute.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\ReflectionAttributeProvider.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\TraceJsonReader.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Serialization\TraceJsonWriter.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\StringEscapeHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\TraceLevel.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\TypeNameHandling.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\Base64Encoder.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\CollectionUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\CollectionWrapper.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\ConvertUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\DateTimeParser.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\DateTimeUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\DictionaryWrapper.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\DynamicProxy.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\DynamicProxyMetaObject.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\DynamicReflectionDelegateFactory.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\DynamicUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\EnumUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\EnumValue.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\ExpressionReflectionDelegateFactory.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\FSharpUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\ILGeneratorExtensions.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\ImmutableCollectionsUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\JavaScriptUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\JsonTokenUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\LinqBridge.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\MathUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\MethodCall.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\PropertyNameTable.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\ReflectionObject.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\ReflectionUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\StringBuffer.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\StringReference.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\StringUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\ThreadSafeStore.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\TypeExtensions.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\Utilities\ValidationUtils.cs" />
-    <Compile Include="Embedded\Newtonsoft.Json\WriteState.cs" />
-    <Compile Include="Models\Enums\Modifier.cs" />
-    <Compile Include="Models\Enums\TextOrientation.cs" />
-    <Compile Include="Models\Enums\CaretPosition.cs" />
-    <Compile Include="Controllers\Gui\WinForms\FormUnifier.cs" />
-    <Compile Include="Controllers\Gui\WinForms\FormUnifierParams.cs" />
-    <Compile Include="Controllers\Gui\WinForms\FormUnifierResult.cs" />
-    <Compile Include="Controllers\Gui\WinForms\TextBoxPlaceHolder.cs" />
-    <Compile Include="Controllers\Gui\WinForms\TextBoxPlaceHolderExtensions.cs" />
-    <Compile Include="Controllers\Gui\Wpf\ViewUnifier.cs" />
-    <Compile Include="Controllers\Gui\Wpf\ViewUnifierParams.cs" />
-    <Compile Include="Controllers\Gui\Wpf\ViewUnifierResult.cs" />
-    <Compile Include="Controllers\Logger.cs" />
-    <Compile Include="Controllers\Security.cs" />
-    <Compile Include="Models\Enums\Serializer.cs" />
-    <Compile Include="Models\LibrerException.cs" />
-    <Compile Include="Models\Logger\LogFile.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SystemPrining\Models\Column.cs" />
-    <Compile Include="SystemPrining\Models\Line.cs" />
-    <Compile Include="SystemPrining\PrintDocument.cs" />
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="Embedded\Newtonsoft.Json\Dynamic.snk" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>for /f "delims=" %25%25a in ('git rev-parse HEAD') do @set VERSION=%25%25a
-powershell -Command "(type \"$(ProjectDir)\Properties\AssemblyInfo.cs\") -replace '\[assembly: AssemblyTitle\(\".*?\"\)\]', '[assembly: AssemblyTitle(\"%25VERSION%25\")]' | Out-File \"$(ProjectDir)Properties\AssemblyInfo.cs\""</PreBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"/>
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{9459DAC1-75B0-4674-9123-E254B8706AA1}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>LibreR</RootNamespace>
+        <AssemblyName>LibreR</AssemblyName>
+        <FileAlignment>512</FileAlignment>
+        <TargetFrameworkProfile/>
+        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE;RELEASE</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugMono|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\DebugMono\</OutputPath>
+        <DefineConstants>DEBUG;TRACE;MONO</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMono|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE;RELEASE;MONO</DefineConstants>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="Microsoft.CSharp"/>
+        <Reference Include="System"/>
+        <Reference Include="System.Core"/>
+        <Reference Include="System.Management"/>
+        <Reference Include="System.Numerics"/>
+        <Reference Include="System.Runtime.Serialization"/>
+        <Reference Include="System.Web.Extensions"/>
+        <Reference Include="System.Xaml"/>
+        <Reference Include="System.Xml.Linq"/>
+        <Reference Include="System.Data.DataSetExtensions"/>
+        <Reference Include="System.Data"/>
+        <Reference Include="System.Deployment"/>
+        <Reference Include="System.Drawing"/>
+        <Reference Include="System.Windows.Forms"/>
+        <Reference Include="System.Xml"/>
+        <Reference Include="WindowsBase"/>
+    </ItemGroup>
+    <ItemGroup Condition="!$(Configuration.Contains('Mono'))">
+        <Reference Include="PresentationCore"/>
+        <Reference Include="PresentationFramework"/>
+        <Reference Include="System.Printing"/>
+    </ItemGroup>
+    <ItemGroup Condition="!$(Configuration.Contains('Mono'))">
+        <Compile Include="Controllers\Gui\Wpf\ViewUnifier.cs"/>
+        <Compile Include="Controllers\Gui\Wpf\ViewUnifierParams.cs"/>
+        <Compile Include="Controllers\Gui\Wpf\ViewUnifierResult.cs"/>
+        <Compile Include="Controllers\Gui\Wpf\Window.cs"/>
+        <Compile Include="Controllers\Keyboard.cs"/>
+        <Compile Include="Controllers\User32.cs"/>
+        <Compile Include="SystemPrining\Models\Column.cs"/>
+        <Compile Include="SystemPrining\Models\Line.cs"/>
+        <Compile Include="SystemPrining\PrintDocument.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Controllers\Extensions.cs"/>
+        <Compile Include="Controllers\Gui\WinForms\Controls\ErrorNotification.cs"/>
+        <Compile Include="Controllers\Gui\WinForms\Controls\TextBoxR.cs">
+            <SubType>Component</SubType>
+        </Compile>
+        <Compile Include="Controllers\Gui\WinForms\Controls\TextBoxR.Designer.cs">
+            <DependentUpon>TextBoxR.cs</DependentUpon>
+        </Compile>
+        <Compile Include="Controllers\Gui\WinForms\FormUnifier.cs"/>
+        <Compile Include="Controllers\Gui\WinForms\FormUnifierParams.cs"/>
+        <Compile Include="Controllers\Gui\WinForms\FormUnifierResult.cs"/>
+        <Compile Include="Controllers\Gui\WinForms\TextBoxPlaceHolder.cs"/>
+        <Compile Include="Controllers\Gui\WinForms\TextBoxPlaceHolderExtensions.cs"/>
+        <Compile Include="Controllers\Logger.cs"/>
+        <Compile Include="Controllers\Security.cs"/>
+        <Compile Include="Controllers\TrickAttributes.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonBinaryType.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonBinaryWriter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonObjectId.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonReader.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonToken.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonType.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonWriter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\ConstructorHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\BinaryConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\BsonObjectIdConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\CustomCreationConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\DataSetConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\DataTableConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\DateTimeConverterBase.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\DiscriminatedUnionConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\EntityKeyMemberConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\ExpandoObjectConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\IsoDateTimeConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\JavaScriptDateTimeConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\JsonValueConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\KeyValuePairConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\RegexConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\StringEnumConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\VersionConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Converters\XmlNodeConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\DateFormatHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\DateParseHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\DateTimeZoneHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\DefaultValueHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\FloatFormatHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\FloatParseHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\FormatterAssemblyStyle.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Formatting.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\IArrayPool.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\IJsonLineInfo.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonArrayAttribute.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonConstructorAttribute.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonContainerAttribute.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonConvert.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonConverterAttribute.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonConverterCollection.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonDictionaryAttribute.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonException.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonExtensionDataAttribute.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonIgnoreAttribute.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonObjectAttribute.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonPosition.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonPropertyAttribute.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonReader.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonReaderException.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonRequiredAttribute.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonSerializationException.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonSerializer.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonSerializerSettings.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonTextReader.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonTextWriter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonToken.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonValidatingReader.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonWriter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\JsonWriterException.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\CommentHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\Extensions.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\IJEnumerable.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JArray.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JConstructor.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JContainer.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JEnumerable.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JObject.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JProperty.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JPropertyDescriptor.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JPropertyKeyedCollection.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JRaw.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonLoadSettings.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonMergeSettings.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayIndexFilter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\ArrayMultipleIndexFilter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\ArraySliceFilter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\FieldFilter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\FieldMultipleFilter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\JPath.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\PathFilter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\QueryExpression.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\QueryFilter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JsonPath\ScanFilter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JToken.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JTokenEqualityComparer.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JTokenReader.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JTokenType.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JTokenWriter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\JValue.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Linq\MergeArrayHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\MemberSerialization.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\MetadataPropertyHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\MissingMemberHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\NullValueHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\ObjectCreationHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\PreserveReferencesHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\ReferenceLoopHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Required.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\Extensions.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchema.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaBuilder.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaConstants.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaException.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaGenerator.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaModel.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaModelBuilder.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaNode.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaNodeCollection.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaResolver.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaType.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\JsonSchemaWriter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\UndefinedSchemaIdHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\ValidationEventArgs.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Schema\ValidationEventHandler.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\SerializationBinder.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\CachedAttributeGetter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\CamelCasePropertyNamesContractResolver.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\DefaultContractResolver.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\DefaultReferenceResolver.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\DefaultSerializationBinder.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\DiagnosticsTraceWriter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\DynamicValueProvider.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\ErrorContext.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\ErrorEventArgs.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\ExpressionValueProvider.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\IAttributeProvider.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\IContractResolver.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\IReferenceResolver.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\ITraceWriter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\IValueProvider.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonArrayContract.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonContainerContract.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonContract.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonDictionaryContract.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonDynamicContract.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonFormatterConverter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonISerializableContract.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonLinqContract.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonObjectContract.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonPrimitiveContract.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonProperty.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonPropertyCollection.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalBase.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalReader.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonSerializerInternalWriter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonSerializerProxy.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonStringContract.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\JsonTypeReflector.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\MemoryTraceWriter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\ObjectConstructor.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\OnErrorAttribute.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\ReflectionAttributeProvider.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\ReflectionValueProvider.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\TraceJsonReader.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Serialization\TraceJsonWriter.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\StringEscapeHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\TraceLevel.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\TypeNameHandling.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\Base64Encoder.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\BidirectionalDictionary.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\CollectionUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\CollectionWrapper.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\ConvertUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\DateTimeParser.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\DateTimeUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\DictionaryWrapper.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\DynamicProxy.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\DynamicProxyMetaObject.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\DynamicReflectionDelegateFactory.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\DynamicUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\EnumUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\EnumValue.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\ExpressionReflectionDelegateFactory.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\FSharpUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\ILGeneratorExtensions.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\ImmutableCollectionsUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\JavaScriptUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\JsonTokenUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\LateBoundReflectionDelegateFactory.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\LinqBridge.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\MathUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\MethodCall.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\MiscellaneousUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\PropertyNameTable.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\ReflectionDelegateFactory.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\ReflectionObject.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\ReflectionUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\StringBuffer.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\StringReference.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\StringUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\ThreadSafeStore.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\TypeExtensions.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\Utilities\ValidationUtils.cs"/>
+        <Compile Include="Embedded\Newtonsoft.Json\WriteState.cs"/>
+        <Compile Include="Models\Enums\Modifier.cs"/>
+        <Compile Include="Models\Enums\TextOrientation.cs"/>
+        <Compile Include="Models\Enums\CaretPosition.cs"/>
+        <Compile Include="Models\Enums\Serializer.cs"/>
+        <Compile Include="Models\LibrerException.cs"/>
+        <Compile Include="Models\Logger\LogFile.cs"/>
+        <Compile Include="Properties\AssemblyInfo.cs"/>
+        <EmbeddedResource Include="Properties\Resources.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+            <SubType>Designer</SubType>
+        </EmbeddedResource>
+        <Compile Include="Properties\Resources.Designer.cs">
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+            <DesignTime>True</DesignTime>
+        </Compile>
+        <EmbeddedResource Include="Embedded\Newtonsoft.Json\Dynamic.snk"/>
+        <None Include="Properties\Settings.settings">
+            <Generator>SettingsSingleFileGenerator</Generator>
+            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
+        <Compile Include="Properties\Settings.Designer.cs">
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Settings.settings</DependentUpon>
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="App.config">
+            <SubType>Designer</SubType>
+        </None>
+    </ItemGroup>
+    <ItemGroup/>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+    <PropertyGroup Condition="'$(OS)' == 'Windows_NT' ">
+        <PreBuildEvent>
+            for /f "delims=" %25%25a in ('git rev-parse --short HEAD') do @set VERSION=%25%25a
+            powershell -Command "(type \"$(ProjectDir)\Properties\AssemblyInfo.cs\") -replace '(\[assembly: AssemblyInformationalVersion\(\"\d+.\d+.\d+)\..*(\"\)\])', '$1.%25VERSION%25$2' | Out-File \"$(ProjectDir)Properties\AssemblyInfo.cs\""
+        </PreBuildEvent>
+        <PostBuildEvent>
+            powershell -Command "(type \"$(ProjectDir)\Properties\AssemblyInfo.cs\") -replace '(\[assembly: AssemblyInformationalVersion\(\"\d+.\d+.\d+)\..*(\"\)\])', '$1.*$2' | Out-File \"$(ProjectDir)Properties\AssemblyInfo.cs\""
+        </PostBuildEvent>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(OS)' != 'Windows_NT' ">
+        <PreBuildEvent>
+            echo "Variables in build events are broken in dotnet/xbuild"
+        </PreBuildEvent>
+    </PropertyGroup>
 </Project>
