@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"/>
     <PropertyGroup>
+        <Import Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"/>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProjectGuid>{9459DAC1-75B0-4674-9123-E254B8706AA1}</ProjectGuid>
@@ -9,20 +10,18 @@
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>LibreR</RootNamespace>
         <AssemblyName>LibreR</AssemblyName>
-        <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <TargetFrameworkProfile/>
+        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
         <Optimize>false</Optimize>
         <OutputPath>bin\Debug\</OutputPath>
         <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <Prefer32Bit>false</Prefer32Bit>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,22 +29,27 @@
         <Optimize>false</Optimize>
         <OutputPath>bin\Release\</OutputPath>
         <DefineConstants>TRACE;RELEASE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-        <Prefer32Bit>false</Prefer32Bit>
     </PropertyGroup>
-    <PropertyGroup>
-        <StartupObject/>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugMono|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\DebugMono\</OutputPath>
+        <DefineConstants>DEBUG;TRACE;MONO</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseMono|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE;RELEASE;MONO</DefineConstants>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="Microsoft.CSharp"/>
-        <Reference Include="PresentationCore"/>
-        <Reference Include="PresentationFramework"/>
         <Reference Include="System"/>
         <Reference Include="System.Core"/>
         <Reference Include="System.Management"/>
         <Reference Include="System.Numerics"/>
-        <Reference Include="System.Printing"/>
         <Reference Include="System.Runtime.Serialization"/>
         <Reference Include="System.Web.Extensions"/>
         <Reference Include="System.Xaml"/>
@@ -58,10 +62,24 @@
         <Reference Include="System.Xml"/>
         <Reference Include="WindowsBase"/>
     </ItemGroup>
-    <ItemGroup>
-        <Compile Include="Controllers\Extensions.cs"/>
+    <ItemGroup Condition="!$(Configuration.Contains('Mono'))">
+        <Reference Include="PresentationCore"/>
+        <Reference Include="PresentationFramework"/>
+        <Reference Include="System.Printing"/>
+    </ItemGroup>
+    <ItemGroup Condition="!$(Configuration.Contains('Mono'))">
+        <Compile Include="Controllers\Gui\Wpf\ViewUnifier.cs"/>
+        <Compile Include="Controllers\Gui\Wpf\ViewUnifierParams.cs"/>
+        <Compile Include="Controllers\Gui\Wpf\ViewUnifierResult.cs"/>
         <Compile Include="Controllers\Gui\Wpf\Window.cs"/>
         <Compile Include="Controllers\Keyboard.cs"/>
+        <Compile Include="Controllers\User32.cs"/>
+        <Compile Include="SystemPrining\Models\Column.cs"/>
+        <Compile Include="SystemPrining\Models\Line.cs"/>
+        <Compile Include="SystemPrining\PrintDocument.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Controllers\Extensions.cs"/>
         <Compile Include="Controllers\Gui\WinForms\Controls\ErrorNotification.cs"/>
         <Compile Include="Controllers\Gui\WinForms\Controls\TextBoxR.cs">
             <SubType>Component</SubType>
@@ -69,8 +87,14 @@
         <Compile Include="Controllers\Gui\WinForms\Controls\TextBoxR.Designer.cs">
             <DependentUpon>TextBoxR.cs</DependentUpon>
         </Compile>
+        <Compile Include="Controllers\Gui\WinForms\FormUnifier.cs"/>
+        <Compile Include="Controllers\Gui\WinForms\FormUnifierParams.cs"/>
+        <Compile Include="Controllers\Gui\WinForms\FormUnifierResult.cs"/>
+        <Compile Include="Controllers\Gui\WinForms\TextBoxPlaceHolder.cs"/>
+        <Compile Include="Controllers\Gui\WinForms\TextBoxPlaceHolderExtensions.cs"/>
+        <Compile Include="Controllers\Logger.cs"/>
+        <Compile Include="Controllers\Security.cs"/>
         <Compile Include="Controllers\TrickAttributes.cs"/>
-        <Compile Include="Controllers\User32.cs"/>
         <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonBinaryType.cs"/>
         <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonBinaryWriter.cs"/>
         <Compile Include="Embedded\Newtonsoft.Json\Bson\BsonObjectId.cs"/>
@@ -270,23 +294,10 @@
         <Compile Include="Models\Enums\Modifier.cs"/>
         <Compile Include="Models\Enums\TextOrientation.cs"/>
         <Compile Include="Models\Enums\CaretPosition.cs"/>
-        <Compile Include="Controllers\Gui\WinForms\FormUnifier.cs"/>
-        <Compile Include="Controllers\Gui\WinForms\FormUnifierParams.cs"/>
-        <Compile Include="Controllers\Gui\WinForms\FormUnifierResult.cs"/>
-        <Compile Include="Controllers\Gui\WinForms\TextBoxPlaceHolder.cs"/>
-        <Compile Include="Controllers\Gui\WinForms\TextBoxPlaceHolderExtensions.cs"/>
-        <Compile Include="Controllers\Gui\Wpf\ViewUnifier.cs"/>
-        <Compile Include="Controllers\Gui\Wpf\ViewUnifierParams.cs"/>
-        <Compile Include="Controllers\Gui\Wpf\ViewUnifierResult.cs"/>
-        <Compile Include="Controllers\Logger.cs"/>
-        <Compile Include="Controllers\Security.cs"/>
         <Compile Include="Models\Enums\Serializer.cs"/>
         <Compile Include="Models\LibrerException.cs"/>
         <Compile Include="Models\Logger\LogFile.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
-        <Compile Include="SystemPrining\Models\Column.cs"/>
-        <Compile Include="SystemPrining\Models\Line.cs"/>
-        <Compile Include="SystemPrining\PrintDocument.cs"/>
         <EmbeddedResource Include="Properties\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -315,11 +326,15 @@
     </ItemGroup>
     <ItemGroup/>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
-    <PropertyGroup  Condition="'$(OS)' == 'Windows_NT' ">
-        <PreBuildEvent>for /f "delims=" %25%25a in ('git rev-parse HEAD') do @set VERSION=%25%25a
-        powershell -Command "(type \"$(ProjectDir)\Properties\AssemblyInfo.cs\") -replace '\[assembly: AssemblyTitle\(\".*?\"\)\]', '[assembly: AssemblyTitle(\"%25VERSION%25\")]' | Out-File \"$(ProjectDir)Properties\AssemblyInfo.cs\""</PreBuildEvent>
+    <PropertyGroup Condition="'$(OS)' == 'Windows_NT' ">
+        <PreBuildEvent>
+            for /f "delims=" %25%25a in ('git rev-parse HEAD') do @set VERSION=%25%25a
+            powershell -Command "(type \"$(ProjectDir)\Properties\AssemblyInfo.cs\") -replace '\[assembly: AssemblyTitle\(\".*?\"\)\]', '[assembly: AssemblyTitle(\"%25VERSION%25\")]' | Out-File \"$(ProjectDir)Properties\AssemblyInfo.cs\""
+        </PreBuildEvent>
     </PropertyGroup>
-    <PropertyGroup  Condition="'$(OS)' != 'Windows_NT' ">
-        <PreBuildEvent>echo "Non windows event"</PreBuildEvent>
+    <PropertyGroup Condition="'$(OS)' != 'Windows_NT' ">
+        <PreBuildEvent>
+            echo "Variables in build events are broken in dotnet/xbuild"
+        </PreBuildEvent>
     </PropertyGroup>
 </Project>

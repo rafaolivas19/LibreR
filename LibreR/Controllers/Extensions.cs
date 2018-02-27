@@ -7,11 +7,13 @@ using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text;
 using System.Windows;
+#if !(MONO)
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+#endif
 using System.Windows.Threading;
 using LibreR.Embedded;
 using LibreR.Embedded.Newtonsoft.Json;
@@ -33,12 +35,15 @@ namespace LibreR.Controllers {
         #endregion
 
         #region BitmapSource
+		#if !(MONO)
         public static BitmapSource ToImageSource(this System.Drawing.Icon icon) {
             return Imaging.CreateBitmapSourceFromHBitmap(icon.ToBitmap().GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
+		#endif
         #endregion
 
         #region DataGrid
+		#if !(MONO)
         public static ScrollViewer GetScrollViewer(this DataGrid datagrid) {
             if (VisualTreeHelper.GetChildrenCount(datagrid) == 0) return null;
             var x = VisualTreeHelper.GetChild(datagrid, 0);
@@ -46,6 +51,7 @@ namespace LibreR.Controllers {
             if (VisualTreeHelper.GetChildrenCount(x) == 0) return null;
             return VisualTreeHelper.GetChild(x, 0) as ScrollViewer;
         }
+		#endif
         #endregion
 
         #region DateTime
@@ -221,6 +227,7 @@ namespace LibreR.Controllers {
         #endregion
 
         #region Panel
+		#if !(MONO)
         public static T[] GetChildren<T>(this Panel panel) {
             return panel.Children.Cast<object>().Where(x => x.GetType() == typeof(T)).Cast<T>().ToArray();
         }
@@ -252,7 +259,7 @@ namespace LibreR.Controllers {
                     return decorator.Child;
             }
         }
-
+		#endif
         #endregion
 
         #region Property
@@ -288,9 +295,11 @@ namespace LibreR.Controllers {
         #endregion
 
         #region RichTextBox
+		#if !(MONO)
         public static string GetText(this System.Windows.Controls.RichTextBox box) {
             return new TextRange(box.Document.ContentStart, box.Document.ContentEnd).Text;
         }
+		#endif
         #endregion
 
         #region String
