@@ -1,0 +1,5 @@
+language: csharp
+solution: LibreR.sln
+
+script:
+  - xbuild /p:Configuration=DebugMono LibreR.sln
