@@ -36,9 +36,9 @@ namespace LibreR.Controllers {
 
         public Logger() : this($"{new StackFrame(1).GetMethod().DeclaringType.GetAssembly().Name}") { }
 
-        public Logger(string name, int lineLength) : this(name, "LOGGER SESION STARTS", '■', lineLength) { }
+        public Logger(string name, int lineLength) : this(name, "LOGGER SESSION STARTS", '■', lineLength) { }
 
-        public Logger(string name, string headerMessage = "LOGGER SESION STARTS", char separatorChar = '■', int lineLength = 120) {
+        public Logger(string name, string headerMessage = "LOGGER SESSION STARTS", char separatorChar = '■', int lineLength = 120) {
             _lineLength = lineLength;
             _separator = GetSeparator(separatorChar, lineLength);
             _headerMessage = headerMessage;
