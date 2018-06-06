@@ -1,0 +1,48 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_DEPTH: "5"
+  ErrorActionPreference: STOP
+
+stages:
+  - build
+  - deploy
+
+build:library:
+  stage: build
+  script:
+    - nuget restore LibreR.sln
+    - msbuild LibreR.sln /p:Configuration=Debug /v:minimal
+  artifacts:
+    paths:
+    - LibreR/bin/Debug
+  cache:
+    paths:
+     - packages
+
+build:docs:
+  stage: build
+  script:
+    # Generate boilerplate
+    - lyf-docgen
+    # Build documentation
+    - docfx "docfx/docfx.json"
+    - mv "docfx/_site" "site"
+    - mv "docfx/_site_pdf/docfx_pdf.pdf" "docs.pdf"
+  artifacts:
+    paths:
+      - site/
+      - docs.pdf
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - docfx/obj
+      - docfx/api/*.yml
+      - docfx/api/.manifest
+
+deploy:docs:
+  stage: deploy
+  only:
+    refs:
+      - dev
+  script:
+    - docs_deploy site $env:CI_PROJECT_NAME

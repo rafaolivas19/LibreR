@@ -23,12 +23,25 @@ using LibreR.Models.Enums;
 using System.Windows.Media;
 
 namespace LibreR.Controllers {
+    /// <summary>
+    /// Contains a collection of extensions methods.
+    /// </summary>
     public static class Extensions {
         #region Assembly
+        /// <summary>
+        /// Gets the name of the assembly containing the given type.
+        /// </summary>
+        /// <typeparam name="T">The type contained in the assembly.</typeparam>
+        /// <returns>The assembly's name.</returns>
         public static AssemblyName GetAssembly<T>() {
             return System.Reflection.Assembly.GetAssembly(typeof(T)).GetName();
         }
 
+        /// <summary>
+        /// Gets the name of the assembly containing the given type.
+        /// </summary>
+        /// <param name="type">The type contained in the assembly.</param>
+        /// <returns>The assembly's name.</returns>
         public static AssemblyName GetAssembly(this Type type) {
             return System.Reflection.Assembly.GetAssembly(type).GetName();
         }
@@ -36,6 +49,11 @@ namespace LibreR.Controllers {
 
         #region BitmapSource
 		#if !(MONO)
+        /// <summary>
+        /// Converts a Icon to a Bitmap.
+        /// </summary>
+        /// <param name="icon">The icon to convert.</param>
+        /// <returns>A bitmap source.</returns>
         public static BitmapSource ToImageSource(this System.Drawing.Icon icon) {
             return Imaging.CreateBitmapSourceFromHBitmap(icon.ToBitmap().GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
         }
@@ -44,6 +62,11 @@ namespace LibreR.Controllers {
 
         #region DataGrid
 		#if !(MONO)
+        /// <summary>
+        /// Gets the ScrollViewer of a DataGrid.
+        /// </summary>
+        /// <param name="datagrid">The datagrid.</param>
+        /// <returns>The datagrid's ScrollViewer.</returns>
         public static ScrollViewer GetScrollViewer(this DataGrid datagrid) {
             if (VisualTreeHelper.GetChildrenCount(datagrid) == 0) return null;
             var x = VisualTreeHelper.GetChild(datagrid, 0);
@@ -56,6 +79,11 @@ namespace LibreR.Controllers {
 
         #region DateTime
 
+        /// <summary>
+        /// Convers a DateTime object to a Unix timestamp.
+        /// </summary>
+        /// <param name="date">The DateTime object.</param>
+        /// <returns>The unix timestamp in seconds.</returns>
         public static long DateTimeToUnixEpoch(DateTime date = default(DateTime)) {
             if (date == default(DateTime)) date = DateTime.Now;
 
@@ -66,6 +94,11 @@ namespace LibreR.Controllers {
             return elapsed;
         }
 
+        /// <summary>
+        /// Convers a DateTime object to a Unix timestamp.
+        /// </summary>
+        /// <param name="date">The DateTime object.</param>
+        /// <returns>The unix timestamp in seconds.</returns>
         public static long ToUnixEpoch(this DateTime date) {
             if (date == default(DateTime)) date = DateTime.Now;
 
@@ -76,6 +109,11 @@ namespace LibreR.Controllers {
             return elapsed;
         }
 
+        /// <summary>
+        /// Gets a DateTime object from a Unix timestamp.
+        /// </summary>
+        /// <param name="timestamp">The unix timestamp in seconds.</param>
+        /// <returns>The corresponding DateTime object.</returns>
         public static DateTime GetDateTimeFromUnixEpoch(double timestamp) {
             var epochTimestamp = timestamp;
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
@@ -87,7 +125,14 @@ namespace LibreR.Controllers {
         #endregion
 
         #region Dictionary
-
+        /// <summary>
+        /// Gets a dictionary's value or the default value for the given type.
+        /// </summary>
+        /// <typeparam name="T">The type of the dictionary's keys.</typeparam>
+        /// <typeparam name="T1">The type of the dictionary's items.</typeparam>
+        /// <param name="dictionary">The dictionary object.</param>
+        /// <param name="key">The key to look for.</param>
+        /// <returns>The value found, or the default value for the type <typeparamref name="T1"/>.</returns>
         public static T1 GetValueOrDefault<T, T1>(this Dictionary<T, T1> dictionary, T key) {
             return dictionary.ContainsKey(key) ? dictionary[key] : default(T1);
         }
@@ -96,6 +141,11 @@ namespace LibreR.Controllers {
 
         #region Dispatcher
 
+        /// <summary>
+        /// Safely invokes an action.
+        /// </summary>
+        /// <param name="dispatcher">The dispatcher.</param>
+        /// <param name="action">The action that will be invoked.</param>
         public static void SafelyInvoke(this Dispatcher dispatcher, Action action) {
             if (!dispatcher.CheckAccess()) {
                 dispatcher.BeginInvoke(new Action(() => { SafelyInvoke(dispatcher, action); }));

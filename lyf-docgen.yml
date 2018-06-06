@@ -1,0 +1,7 @@
+title: LibrR
+project_path: LibreR/**.csproj
+
+toc:
+  - name: Documentacion
+    href: api/
+    homepage: api/index.html
