@@ -158,14 +158,31 @@ namespace LibreR.Controllers {
         #endregion
 
         #region FileInfo
+        /// <summary>
+        /// Creates a new file, writes the specified string to the file, and then closes the file. If the target file already exists, it is overwritten.
+        /// </summary>
+        /// <remarks>Extension method for easier access to <see cref="File.WriteAllText(string, string)"/>.</remarks>
+        /// <param name="file">The file to write to.</param>
+        /// <param name="s">The string to write to the file.</param>
         public static void WriteAllText(this FileInfo file, string s) {
             File.WriteAllText(file.FullName, s);
         }
 
+        /// <summary>
+        /// Opens a text file, reads all lines of the file into a string, and then closes the file.
+        /// </summary>
+        /// <remarks>Extension method for easier access to <see cref="File.ReadAllText(string)"/>.</remarks>
+        /// <param name="file">The file to open for reading.</param>
+        /// <returns>A string containing all lines of the file.</returns>
         public static string ReadAllText(this FileInfo file) {
             return File.ReadAllText(file.FullName);
         }
 
+        /// <summary>
+        /// Gets the name of a file, without its extension.
+        /// </summary>
+        /// <param name="file">The file to get the name of.</param>
+        /// <returns>The name of the file with no extension.</returns>
         public static string GetNameWithoutExtension(this FileInfo file) {
             return file.Extension != string.Empty ?
                 file.Name.Split('.')[0] :
@@ -175,6 +192,11 @@ namespace LibreR.Controllers {
 
         #region FileSystemInfo
 
+        /// <summary>
+        /// Copies a directory to another directory.
+        /// </summary>
+        /// <param name="sourceDirName">The directory to copy from.</param>
+        /// <param name="destDirName">The destination to copy to.</param>
         public static void CopyTo(this FileSystemInfo sourceDirName, string destDirName) {
             //Now Create all of the directories
             foreach (string dirPath in Directory.GetDirectories(sourceDirName.FullName, "*",
@@ -202,6 +224,9 @@ namespace LibreR.Controllers {
             { Serializer.OneLineWithNullValues, new JsonSerializerSettings{ Formatting = Formatting.None } }
         };
 
+        /// <summary>
+        /// Enables serialization of Enums.
+        /// </summary>
         public static void EnableEnumStringFormatSerialization() {
             JsonConvert.DefaultSettings = () => {
                 var settings = new JsonSerializerSettings();
@@ -210,6 +235,9 @@ namespace LibreR.Controllers {
             };
         }
 
+        /// <summary>
+        /// Disables serialization of Enums.
+        /// </summary>
         public static void DisableEnumStringFormatSerialization() {
             JsonConvert.DefaultSettings = () => {
                 var settings = new JsonSerializerSettings();
@@ -218,6 +246,13 @@ namespace LibreR.Controllers {
             };
         }
 
+        /// <summary>
+        /// Serializes any object to its JSON representation.
+        /// </summary>
+        /// <param name="obj">The object to serialize.</param>
+        /// <param name="serializer">The serializer to use.</param>
+        /// <returns>A string representing the object.</returns>
+        /// <seealso cref="Serializer"/>
         public static string Serialize(this object obj, Serializer serializer = Serializer.PrettyFormat) {
             if (_isEnumStringFormatEnable) return JsonConvert.SerializeObject(obj, BinderSerializers[serializer]);
 
@@ -227,6 +262,13 @@ namespace LibreR.Controllers {
             return JsonConvert.SerializeObject(obj, BinderSerializers[serializer]);
         }
 
+        /// <summary>
+        /// Deserealizes a serial string into an object of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">The expected type of the object.</typeparam>
+        /// <param name="obj">The string to deserealize.</param>
+        /// <param name="converterType">The type of the object that will be desearialized.</param>
+        /// <returns>The resulting object.</returns>
         public static T Deserialize<T>(this string obj, Type converterType = null) {
             if (converterType == null) return JsonConvert.DeserializeObject<T>(obj);
 
@@ -239,19 +281,37 @@ namespace LibreR.Controllers {
             return JsonConvert.DeserializeObject<T>(obj, BinderConverters[converterType]);
         }
 
+        /// <summary>
+        /// Deserealizes a serial string into an object of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">The expected type of the object.</typeparam>
+        /// <typeparam name="T1"></typeparam>
+        /// <param name="obj">The string to deserealize.</param>
+        /// <param name="converterType">The type of the object that will be desearialized.</param>
+        /// <returns>The resulting object.</returns>
         public static T Deserialize<T, T1>(this string obj) {
             return obj.Deserialize<T>(typeof(T1));
         }
         #endregion
 
         #region MethodInfo
+        /// <summary>
+        /// Invokes a method.
+        /// </summary>
+        /// <param name="methodInfo">The method to invoke.</param>
+        /// <param name="obj">The instance of the class from where the method will be invoked.</param>
+        /// <param name="parameters">The method's parameters.</param>
+        /// <returns>The returned value of the method.</returns>
         public static object Invoke(this MethodInfo methodInfo, object obj, params object[] parameters) {
             return methodInfo.Invoke(obj, parameters);
         }
         #endregion
 
         #region NetworkInterface
-
+        /// <summary>
+        /// Gets the MAC address of the host device.
+        /// </summary>
+        /// <returns>The MAC address.</returns>
         public static string GetMacAddress() {
             return (
                 from nic in NetworkInterface.GetAllNetworkInterfaces()
@@ -263,6 +323,13 @@ namespace LibreR.Controllers {
         #endregion
 
         #region Object
+        /// <summary>
+        /// Gets an objects property by name.
+        /// </summary>
+        /// <typeparam name="T">The type of the property.</typeparam>
+        /// <param name="obj">The object to get the property from.</param>
+        /// <param name="name">The name of the property.</param>
+        /// <returns>The property.</returns>
         public static T GetProperty<T>(this object obj, string name) {
             var propertyInstance = obj.GetType().GetProperties().FirstOrDefault(x => x.Name == name);
             var result = propertyInstance?.GetValue(obj, null);
@@ -278,10 +345,22 @@ namespace LibreR.Controllers {
 
         #region Panel
 		#if !(MONO)
+        /// <summary>
+        /// Gets the children of a <see cref="Panel"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the panel's children.</typeparam>
+        /// <param name="panel">The panel to get the children from.</param>
+        /// <returns>The panel's children.</returns>
         public static T[] GetChildren<T>(this Panel panel) {
             return panel.Children.Cast<object>().Where(x => x.GetType() == typeof(T)).Cast<T>().ToArray();
         }
 
+        /// <summary>
+        /// Gets the children of a panel recursively.
+        /// </summary>
+        /// <typeparam name="T">The type of the children.</typeparam>
+        /// <param name="panel">The panel to get the children from.</param>
+        /// <returns>The panel's children.</returns>
         public static List<T> GetChildrenRecursively<T>(this Panel panel) {
             var components = new List<T>();
 
@@ -299,6 +378,11 @@ namespace LibreR.Controllers {
             return components;
         }
 
+        /// <summary>
+        /// Gets the content of a <see cref="Decorator"/>.
+        /// </summary>
+        /// <param name="decorator">The decorator to get the content from.</param>
+        /// <returns>The decorator's content.</returns>
         public static object GetDecoratorContent(this Decorator decorator) {
             while (true) {
                 var child = decorator.Child as Decorator;
@@ -313,7 +397,6 @@ namespace LibreR.Controllers {
         #endregion
 
         #region Property
-
         public static bool HasAttribute(this PropertyInfo property, Type attributeType) {
             return Attribute.IsDefined(property, attributeType);
         }
