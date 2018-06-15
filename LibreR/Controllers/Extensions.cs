@@ -397,30 +397,69 @@ namespace LibreR.Controllers {
         #endregion
 
         #region Property
+        /// <summary>
+        /// Checks if a Property has a specific attribute.
+        /// </summary>
+        /// <param name="property">The property to check.</param>
+        /// <param name="attributeType">The type of attribute to check for.</param>
+        /// <returns><c>true</c> if the Property has the attribute, <c>false</c> otherwise.</returns>
         public static bool HasAttribute(this PropertyInfo property, Type attributeType) {
             return Attribute.IsDefined(property, attributeType);
         }
 
+        /// <summary>
+        /// Checks if a Property has an attribute of a certain type.
+        /// </summary>
+        /// <typeparam name="T">The type of attribute to check for.</typeparam>
+        /// <param name="property">The property to check.</param>
+        /// <returns></returns>
         public static bool HasAttribute<T>(this PropertyInfo property) {
             return property.HasAttribute(typeof(T));
         }
 
+        /// <summary>
+        /// Gets an attribute from a Property.
+        /// </summary>
+        /// <param name="property">The property to check.</param>
+        /// <param name="attribute">The type of attribute.</param>
+        /// <returns>The attribute.</returns>
         public static object GetAttribute(this PropertyInfo property, Type attribute) {
             return property
                 .GetCustomAttributes(true)
                 .FirstOrDefault(x => x.GetType() == attribute);
         }
 
+        /// <summary>
+        /// Gets an attribute from a Property.
+        /// </summary>
+        /// <typeparam name="T">The type of attribute</typeparam>
+        /// <param name="property">The property to get the attribute of.</param>
+        /// <returns>The attribute.</returns>
         public static T GetAttribute<T>(this PropertyInfo property) {
             return (T)property.GetAttribute(typeof(Attribute));
         }
 
+        /// <summary>
+        /// Gets the value of Property's attribute.
+        /// </summary>
+        /// <param name="property">The property to get the attribute's value of.</param>
+        /// <param name="attributeType">The type of attribute.</param>
+        /// <param name="valueName">The value of the attribute./param>
+        /// <returns></returns>
         public static object GetAttributeValue(this PropertyInfo property, Type attributeType, string valueName) {
             if (!property.HasAttribute(attributeType)) return null;
             var attribute = property.GetAttribute(attributeType);
             return attribute.GetType().GetProperty(valueName).GetValue(attribute, null);
         }
 
+        /// <summary>
+        /// Gets the value of a Property's attribute.
+        /// </summary>
+        /// <typeparam name="TAttribute">The type of the attribute.</typeparam>
+        /// <typeparam name="TValue">The type of the attribute's value.</typeparam>
+        /// <param name="property">The property to get the attribute's value of.</param>
+        /// <param name="valueName">The attribute's name.</param>
+        /// <returns>The value of the attribute.</returns>
         public static TValue GetAttributeValue<TAttribute, TValue>(this PropertyInfo property, string valueName) {
             return (TValue)property.GetAttributeValue(typeof(TAttribute), valueName);
         }
@@ -429,6 +468,11 @@ namespace LibreR.Controllers {
 
         #region RichTextBox
 		#if !(MONO)
+        /// <summary>
+        /// Gets the text if a <see cref="RichTextBox"/>.
+        /// </summary>
+        /// <param name="box">The box to get the text of.</param>
+        /// <returns>The text of the box.</returns>
         public static string GetText(this System.Windows.Controls.RichTextBox box) {
             return new TextRange(box.Document.ContentStart, box.Document.ContentEnd).Text;
         }
@@ -436,41 +480,81 @@ namespace LibreR.Controllers {
         #endregion
 
         #region String
+        /// <summary>
+        /// Checks if a string represents an <see cref="int"/>.
+        /// </summary>
+        /// <param name="x">The string to check.</param>
+        /// <returns><c>true</c> if the string represents an <see cref="int"/>, <c>false</c> otherwise.</returns>
         public static bool IsInt(this string x) {
             int aux;
             return int.TryParse(x, out aux);
         }
 
+        /// <summary>
+        /// Checks if a string represents an <see cref="int"/>.
+        /// </summary>
+        /// <param name="x">The string to check.</param>
+        /// <returns><c>true</c> if the string represents an <see cref="int"/>, <c>false</c> otherwise.</returns>
         public static bool IsUShort(this string x) {
             ushort aux;
             return ushort.TryParse(x, out aux);
         }
 
+        /// <summary>
+        /// Checks if a string represents an <see cref="int"/>.
+        /// </summary>
+        /// <param name="x">The string to check.</param>
+        /// <returns><c>true</c> if the string represents an <see cref="int"/>, <c>false</c> otherwise.</returns>
         public static bool IsByte(this string x) {
             byte aux;
             return byte.TryParse(x, out aux);
         }
 
+        /// <summary>
+        /// Checks if a string represents an <see cref="int"/>.
+        /// </summary>
+        /// <param name="x">The string to check.</param>
+        /// <returns><c>true</c> if the string represents an <see cref="int"/>, <c>false</c> otherwise.</returns>
         public static bool IsLong(this string x) {
             long aux;
             return long.TryParse(x, out aux);
         }
 
+        /// <summary>
+        /// Checks if a string represents an <see cref="int"/>.
+        /// </summary>
+        /// <param name="x">The string to check.</param>
+        /// <returns><c>true</c> if the string represents an <see cref="int"/>, <c>false</c> otherwise.</returns>
         public static bool IsDouble(this string x) {
             double aux;
             return double.TryParse(x, out aux);
         }
 
+        /// <summary>
+        /// Checks if a string represents an <see cref="decimal"/>.
+        /// </summary>
+        /// <param name="x">The string to check.</param>
+        /// <returns><c>true</c> if the string represents an <see cref="decimal"/>, <c>false</c> otherwise.</returns>
         public static bool IsDecimal(this string x) {
             decimal aux;
             return decimal.TryParse(x, out aux);
         }
 
+        /// <summary>
+        /// Checks if a string represents an <see cref="bool"/>.
+        /// </summary>
+        /// <param name="x">The string to check.</param>
+        /// <returns><c>true</c> if the string represents an <see cref="bool"/>, <c>false</c> otherwise.</returns>
         public static bool IsBool(this string x) {
             bool aux;
             return bool.TryParse(x, out aux);
         }
 
+        /// <summary>
+        /// Checks if a string represents an <see cref="DateTime"/>.
+        /// </summary>
+        /// <param name="x">The string to check.</param>
+        /// <returns><c>true</c> if the string represents an <see cref="DateTime"/>, <c>false</c> otherwise.</returns>
         public static bool IsDateTime(this string x) {
             DateTime aux;
             return DateTime.TryParse(x, out aux);
