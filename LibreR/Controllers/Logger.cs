@@ -50,8 +50,19 @@ namespace LibreR.Controllers {
         private void Header() {
             lock (this) {
                 var text = String.Format("{0}{2}{1}{2}{0}{2}", _separator, _headerMessage, Environment.NewLine);
+                Action action = null;
 
-                File.AppendAllText(LogFile.ToString(), text);
+                // appends header in file (retries if an IOExceptin is thrown)
+                action = delegate {
+                    try {
+                        File.AppendAllText(LogFile.ToString(), text);
+                    }
+                    catch (IOException) {
+                        action.Invoke();
+                    }
+                };
+
+                action.Invoke();
                 SecureMessage(text, LogFile.Date);
             }
 
@@ -96,8 +107,19 @@ namespace LibreR.Controllers {
 
             lock (this) {
                 var text = $"{sb}{Environment.NewLine}";
+                Action action = null;
 
-                File.AppendAllText(LogFile.FullName, text);
+                // appends message in file (retries if an IOExceptin is thrown)
+                action = delegate {
+                    try {
+                        File.AppendAllText(LogFile.FullName, text);
+                    }
+                    catch (IOException) {
+                        action.Invoke();
+                    }
+                };
+
+                action.Invoke();
                 SecureMessage(text, LogFile.Date);
             }
         }
@@ -134,14 +156,39 @@ namespace LibreR.Controllers {
                 copyFile.Directory?.Create();
             }
 
-            File.WriteAllText(copy, sb.ToString());
+            Action action = null;
+
+            // copies text in file (retries if an IOExceptin is thrown)
+            action = delegate {
+                try {
+                    File.WriteAllText(copy, sb.ToString());
+                }
+                catch (IOException) {
+                    action.Invoke();
+                }
+            };
+
+            action.Invoke();
         }
 
         private void SecureMessage(string text, DateTime? date = null) {
-            if (_isSecureCopyActive)
-                File.AppendAllText(
-                    $"{_securePath}/{LogFile.Name}/{date?.ToString("yyyy-MM-dd") ?? string.Empty}.{_secureExtension}",
-                    _security.Encrypt(text) + '♦');
+            if (_isSecureCopyActive) {
+                Action action = null;
+
+                // appends secure message in file (retries if an IOExceptin is thrown)
+                action = delegate {
+                    try {
+                        File.AppendAllText(
+                            $"{_securePath}/{LogFile.Name}/{date?.ToString("yyyy-MM-dd") ?? string.Empty}.{_secureExtension}",
+                            _security.Encrypt(text) + '♦');
+                    }
+                    catch (IOException) {
+                        action.Invoke();
+                    }
+                };
+
+                action.Invoke();
+            }
         }
 
         private static string GetSeparator(char symbol, int length) {
