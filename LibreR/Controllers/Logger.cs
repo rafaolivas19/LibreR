@@ -9,6 +9,8 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Permissions;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using LibreR.Models.Logger;
 
 namespace LibreR.Controllers {
@@ -42,8 +44,7 @@ namespace LibreR.Controllers {
             _lineLength = lineLength;
             _separator = GetSeparator(separatorChar, lineLength);
             _headerMessage = headerMessage;
-
-            LogFile = new LogFile(name);
+            LogFile = new LogFile(Regex.Replace(name, "[\\\\/\\:\\*\\?\\\"\\<\\>\\|]", "_"));
             Directory.CreateDirectory(LogFile.DirectoryName ?? "Default");
         }
 
@@ -51,7 +52,7 @@ namespace LibreR.Controllers {
             lock (this) {
                 var text = String.Format("{0}{2}{1}{2}{0}{2}", _separator, _headerMessage, Environment.NewLine);
 
-                File.AppendAllText(LogFile.ToString(), text);
+                WriteFile(LogFile.ToString(), text, true);
                 SecureMessage(text, LogFile.Date);
             }
 
@@ -97,7 +98,7 @@ namespace LibreR.Controllers {
             lock (this) {
                 var text = $"{sb}{Environment.NewLine}";
 
-                File.AppendAllText(LogFile.FullName, text);
+                WriteFile(LogFile.FullName, text, true);
                 SecureMessage(text, LogFile.Date);
             }
         }
@@ -134,14 +135,17 @@ namespace LibreR.Controllers {
                 copyFile.Directory?.Create();
             }
 
-            File.WriteAllText(copy, sb.ToString());
+            WriteFile(copy, sb.ToString());
         }
 
         private void SecureMessage(string text, DateTime? date = null) {
-            if (_isSecureCopyActive)
-                File.AppendAllText(
+            if (_isSecureCopyActive) {
+                WriteFile(
                     $"{_securePath}/{LogFile.Name}/{date?.ToString("yyyy-MM-dd") ?? string.Empty}.{_secureExtension}",
-                    _security.Encrypt(text) + '♦');
+                    _security.Encrypt(text) + '♦',
+                    true
+                );
+            }
         }
 
         private static string GetSeparator(char symbol, int length) {
@@ -152,6 +156,49 @@ namespace LibreR.Controllers {
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Manages the writes and appends to a file.
+        /// 
+        /// If for some reason the file to write to is busy by another process, this method will attempt to write to 
+        /// the target file 5 times (waiting 200 ms on each try). If after the 5 attempts this file is still busy,
+        /// this method will create a new file in the format `{file_name} ({file_number}.{extension})`, 
+        /// e.g. `file (1).log`.
+        /// 
+        /// If for some reason the newly created file is busy by another process, the same thing will be done until
+        /// the file numbers get to 10 (`file (10).log`) in wich case a IOException will be thrown.
+        /// 
+        /// </summary>
+        /// <param name="path">The file path to write to</param>
+        /// <param name="content">The content that will be written to the file</param>
+        /// <param name="append">Defines if the content will be written or appended to the file</param>
+        /// <param name="attempts">Defines how many attempts have been made to write to the current file</param>
+        /// <param name="fileCreations">Defines how many files have been created in an attempt to log the message</param>
+        private static void WriteFile(string path, string content, bool append = false, int attempts = 0, int fileCreations = 0) {
+            try {
+                if (append) {
+                    File.AppendAllText(path, content);
+                }
+                else {
+                    File.WriteAllText(path, content);
+                }
+            }
+            catch (IOException ex) {
+                if (attempts >= 5) {
+                    var rxPath = Regex.Match(path, @"(.+?)(?: \(\d\))?\.(.+)").Groups;
+
+                    if (fileCreations >= 10) {
+                        throw new IOException("The log file is not accessible, another process is using it", ex);
+                    }
+
+                    WriteFile($"{rxPath[1]} ({++fileCreations}).{rxPath[2]}", content, append, 0, fileCreations);
+                }
+                else {
+                    Thread.Sleep(200);
+                    WriteFile(path, content, append, ++attempts, fileCreations);
+                }
+            }
         }
     }
 }
