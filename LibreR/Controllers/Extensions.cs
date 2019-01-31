@@ -47,15 +47,25 @@ namespace LibreR.Controllers {
         }
 
         /// <summary>
+        /// Gets the informatinal version of the assembly of the given type.
+        /// </summary>
+        /// <param name="type">The type to check.</param>
+        /// <returns>The information version of the assembly.</returns>
+        public static string GetInformationalVersion(this Type type)
+        {
+            AssemblyInformationalVersionAttribute assemblyVersionAtt =
+                Attribute.GetCustomAttribute(type.Assembly, typeof(AssemblyInformationalVersionAttribute)) as AssemblyInformationalVersionAttribute;
+            return assemblyVersionAtt.InformationalVersion;
+        }
+
+        /// <summary>
         /// Gets the version of the assembly of the given type.
         /// </summary>
         /// <param name="type">The type to check.</param>
         /// <returns>The information version of the assembly.</returns>
         public static string GetVersion(this Type type)
         {
-            AssemblyInformationalVersionAttribute assemblyVersionAtt =
-                Attribute.GetCustomAttribute(type.Assembly, typeof(AssemblyInformationalVersionAttribute)) as AssemblyInformationalVersionAttribute;
-            return assemblyVersionAtt.InformationalVersion;
+            return type.GetAssembly().Version.ToString();
         }
 
         #endregion
