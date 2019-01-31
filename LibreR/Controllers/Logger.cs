@@ -14,7 +14,16 @@ using System.Threading;
 using LibreR.Models.Logger;
 
 namespace LibreR.Controllers {
+    /// <summary>
+    /// Represents a logger handler.
+    /// </summary>
+    /// <remarks>The log handler implements date rollover, creating a new log file for every day.</remarks>
     public class Logger {
+
+        /// <summary>
+        /// Gets the current log file.
+        /// </summary>
+        /// <value>The currently used log file.</value>
         public LogFile LogFile {
             get {
                 if (DateTime.Now.Date != _logFile.Date.Date) {
@@ -36,10 +45,26 @@ namespace LibreR.Controllers {
         private string _secureExtension;
         private Security _security;
 
+        /// <summary>
+        /// Creates a new logger handler.
+        /// </summary>
+        /// <remarks>By default, the assembly's name will be used as the logger's name.</remarks>
         public Logger() : this($"{new StackFrame(1).GetMethod().DeclaringType.GetAssembly().Name}") { }
 
+        /// <summary>
+        /// Creates a new logger handler.
+        /// </summary>
+        /// <param name="name">The name of the log file.</param>
+        /// <param name="lineLength">The line length used for the separator.</param>
         public Logger(string name, int lineLength) : this(name, "LOGGER SESSION STARTS", '■', lineLength) { }
 
+        /// <summary>
+        /// Creates a new logger handler.
+        /// </summary>
+        /// <param name="name">The name of the logger.</param>
+        /// <param name="headerMessage">The header text to write on every instance creation of the handler.</param>
+        /// <param name="separatorChar">The character to use as a separator.</param>
+        /// <param name="lineLength">The line length used for the separator.</param>
         public Logger(string name, string headerMessage = "LOGGER SESSION STARTS", char separatorChar = '■', int lineLength = 120) {
             _lineLength = lineLength;
             _separator = GetSeparator(separatorChar, lineLength);
@@ -59,15 +84,31 @@ namespace LibreR.Controllers {
             _headerWritten = true;
         }
 
+        /// <summary>
+        /// Write a message to the logger.
+        /// </summary>
+        /// <param name="message">The message to write to the file.</param>
+        /// <remarks>If the object is not a string, its <see cref="Object.ToString()"/> method will be used.</remarks>
         public void Message(object message) {
             Message(message.ToString());
         }
 
+        /// <summary>
+        /// Write a message to the logger.
+        /// </summary>
+        /// <param name="message">The message to write to the file.</param>
+        /// <param name="tag">The tag of the message.</param>
+        /// <remarks>If the object is not a string, its <see cref="Object.ToString()"/> method will be used.</remarks>
         public void Message(object message, string tag) {
             message = string.Format("[{1}] {0}", message, tag);
             Message(message);
         }
 
+        /// <summary>
+        /// Writes an exception message to the logger.
+        /// </summary>
+        /// <param name="message">The message to write.</param>
+        /// <param name="ex">The exception to display.</param>
         public void Message(object message, Exception ex) {
             var m = $"{message}: {ex}";
             Message(m);
@@ -103,6 +144,12 @@ namespace LibreR.Controllers {
             }
         }
 
+        /// <summary>
+        /// Enable the use of a secure copy of the log file.
+        /// </summary>
+        /// <param name="path">The path where the secure copy will be stored in.</param>
+        /// <param name="extension">The extension of the log file.</param>
+        /// <param name="key">The security key of the log file.</param>
         public void EnableSecureCopy(string path, string extension, string key) {
             _isSecureCopyActive = true;
             _securePath = path;
@@ -114,6 +161,10 @@ namespace LibreR.Controllers {
             if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
         }
 
+        /// <summary>
+        /// Enables the use of a secure copy of the log file.
+        /// </summary>
+        /// <param name="key">The key to use to secure the log file.</param>
         public void EnableSecureCopy(string key) {
             EnableSecureCopy($"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}/ol-GS", "bin", key);
         }

@@ -23,10 +23,11 @@ namespace LibreR.Controllers {
         private static object _sender;
 
         /// <summary>
-        /// Starts listening to keys. This won't work unless App object is initialized (in WPF you can try "((App)Current).InitializeComponent();" before calling this method)
+        /// Starts listening to keys.
         /// </summary>
         /// <param name="action"></param>
         /// <param name="sender"></param>
+        /// <remarks>This won't work unless App object is initialized (in WPF you can try "((App)Current).InitializeComponent();" before calling this method)</remarks>
         public static void ListenKeys(EventHandler<KeyEventArgs> action = null, object sender = null) {
             if (action == null) action = ListeningKeys;
 
