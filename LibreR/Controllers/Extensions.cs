@@ -45,10 +45,23 @@ namespace LibreR.Controllers {
         public static AssemblyName GetAssembly(this Type type) {
             return System.Reflection.Assembly.GetAssembly(type).GetName();
         }
+
+        /// <summary>
+        /// Gets the version of the assembly of the given type.
+        /// </summary>
+        /// <param name="type">The type to check.</param>
+        /// <returns>The information version of the assembly.</returns>
+        public static string GetVersion(this Type type)
+        {
+            AssemblyInformationalVersionAttribute assemblyVersionAtt =
+                Attribute.GetCustomAttribute(type.Assembly, typeof(AssemblyInformationalVersionAttribute)) as AssemblyInformationalVersionAttribute;
+            return assemblyVersionAtt.InformationalVersion;
+        }
+
         #endregion
 
         #region BitmapSource
-		#if !(MONO)
+#if !(MONO)
         /// <summary>
         /// Converts a Icon to a Bitmap.
         /// </summary>
@@ -287,7 +300,6 @@ namespace LibreR.Controllers {
         /// <typeparam name="T">The expected type of the object.</typeparam>
         /// <typeparam name="T1"></typeparam>
         /// <param name="obj">The string to deserealize.</param>
-        /// <param name="converterType">The type of the object that will be desearialized.</param>
         /// <returns>The resulting object.</returns>
         public static T Deserialize<T, T1>(this string obj) {
             return obj.Deserialize<T>(typeof(T1));
@@ -444,7 +456,7 @@ namespace LibreR.Controllers {
         /// </summary>
         /// <param name="property">The property to get the attribute's value of.</param>
         /// <param name="attributeType">The type of attribute.</param>
-        /// <param name="valueName">The value of the attribute./param>
+        /// <param name="valueName">The value of the attribute.</param>
         /// <returns></returns>
         public static object GetAttributeValue(this PropertyInfo property, Type attributeType, string valueName) {
             if (!property.HasAttribute(attributeType)) return null;
@@ -560,41 +572,88 @@ namespace LibreR.Controllers {
             return DateTime.TryParse(x, out aux);
         }
 
+        /// <summary>
+        /// Checks if two strings are equal, ignoring case.
+        /// </summary>
+        /// <param name="a">The first string.</param>
+        /// <param name="b">Second string.</param>
+        /// <returns><c>true</c> if the strings are equal, <c>false</c> otherwise.</returns>
         public static bool EqualsIgnoreCase(this string a, string b) {
             return String.Equals(a, b, StringComparison.CurrentCultureIgnoreCase);
         }
 
+        /// <summary>
+        /// Converts a numeric string into an <see cref="int"/>.
+        /// </summary>
+        /// <param name="s">The string to convert.</param>
+        /// <returns>The number represented by the string.</returns>
+        /// <exception cref="LibrerException">Thrown when the string does not contain a compatible number.</exception>
         public static int ToInt(this string s) {
             if (!s.IsInt()) throw new LibrerException("Value is not an int");
             return int.Parse(s);
         }
 
+        /// <summary>
+        /// Converts a numeric string into an <see cref="ushort"/>.
+        /// </summary>
+        /// <param name="s">The string to convert.</param>
+        /// <returns>The number represented by the string.</returns>
+        /// <exception cref="LibrerException">Thrown when the string does not contain a compatible number.</exception>
         public static ushort ToUShort(this string s) {
             if (!s.IsUShort()) throw new LibrerException("Value is not an ushort");
             return ushort.Parse(s);
         }
 
+        /// <summary>
+        /// Converts a numeric string into an <see cref="byte"/>.
+        /// </summary>
+        /// <param name="s">The string to convert.</param>
+        /// <returns>The number represented by the string.</returns>
+        /// <exception cref="LibrerException">Thrown when the string does not contain a compatible number.</exception>
         public static byte ToByte(this string s) {
             if (!s.IsByte()) throw new LibrerException("Value is not an byte");
             return byte.Parse(s);
         }
 
+        /// <summary>
+        /// Converts a numeric string into an <see cref="long"/>.
+        /// </summary>
+        /// <param name="s">The string to convert.</param>
+        /// <returns>The number represented by the string.</returns>
+        /// <exception cref="LibrerException">Thrown when the string does not contain a compatible number.</exception>
         public static long ToLong(this string s) {
             if (!s.IsLong()) throw new LibrerException("Value is not a long");
             return long.Parse(s);
         }
 
+        /// <summary>
+        /// Converts a numeric string into an <see cref="double"/>.
+        /// </summary>
+        /// <param name="s">The string to convert.</param>
+        /// <returns>The number represented by the string.</returns>
+        /// <exception cref="LibrerException">Thrown when the string does not contain a compatible number.</exception>
         public static double ToDouble(this string s) {
             if (!s.IsDouble()) throw new LibrerException("Value is not a double");
             return double.Parse(s);
         }
 
+        /// <summary>
+        /// Converts a numeric string into an <see cref="decimal"/>.
+        /// </summary>
+        /// <param name="s">The string to convert.</param>
+        /// <returns>The number represented by the string.</returns>
+        /// <exception cref="LibrerException">Thrown when the string does not contain a compatible number.</exception>
         public static decimal ToDecimal(this string s) {
             if (s.Contains('$')) s = s.Replace("$", string.Empty);
             if (!s.IsDecimal()) throw new LibrerException("Value is not a decimal");
             return decimal.Parse(s);
         }
 
+        /// <summary>
+        /// Checks if a string is <c>null</c> or empty.
+        /// </summary>
+        /// <param name="s">The string to check.</param>
+        /// <returns>Returns <c>true</c> if the string is <c>null</c> or empty (""), <c>false</c> otherwise.</returns>
         public static bool IsNullOrEmpty(this string s) {
             return string.IsNullOrEmpty(s);
         }

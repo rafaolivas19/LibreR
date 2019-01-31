@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 
 namespace LibreR.Models.Logger {
+    /// <summary>
+    /// Represents a log file.
+    /// </summary>
     public class LogFile {
         public DateTime Date { get; set; }
         public string Name { get; set; }
