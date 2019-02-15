@@ -68,7 +68,7 @@ namespace LibreR.Controllers {
         public Logger(string name, string headerMessage = "LOGGER SESSION STARTS", char separatorChar = '■', int lineLength = 120) {
             _lineLength = lineLength;
             _separator = GetSeparator(separatorChar, lineLength);
-            _headerMessage = headerMessage;
+            _headerMessage = $"{headerMessage} [{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffffzzz")}]";
             LogFile = new LogFile(Regex.Replace(name, "[\\\\/\\:\\*\\?\\\"\\<\\>\\|]", "_"));
             Directory.CreateDirectory(LogFile.DirectoryName ?? "Default");
         }
